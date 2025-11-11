@@ -12,7 +12,10 @@ import ScreenShareIcon from '@mui/icons-material/ScreenShare';
 import StopScreenShareIcon from '@mui/icons-material/StopScreenShare'
 import ChatIcon from '@mui/icons-material/Chat'
 import server from '../enviroment';
+import { useNavigate } from 'react-router-dom';
 const server_url = server;
+//import { Navigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 
 // Global connections map (as you had)
 let connections = {};
@@ -21,6 +24,8 @@ const peerConfigConnections = {
 };
 
 export default function VideoMeetComponent() {
+ const navigate = useNavigate();
+
   const socketRef = useRef(null);
   const socketIdRef = useRef(null);
 
@@ -338,9 +343,10 @@ export default function VideoMeetComponent() {
   };
 
   const handleEndCall = () => {
-    try { localVideoref.current?.srcObject?.getTracks?.().forEach(track => track.stop()); } catch {}
+    try { localVideoref.current?.srcObject?.getTracks?.().forEach(track => track.stop()); } catch{}
     try { socketRef.current?.disconnect(); } catch {}
-    window.location.href = "/home";
+     navigate("/home", { replace: true });
+   
   };
 
   // ===== Chat =====
