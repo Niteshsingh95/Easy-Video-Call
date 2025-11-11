@@ -1,3 +1,11 @@
+import dotenv from "dotenv";
+
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config();
+}
+
+
+
 import express from "express";
  import {createServer} from "node:http";
 
@@ -18,9 +26,15 @@ app.use(express.json({limit:"40kb"}));
 app.use(express.urlencoded({limit:"40kb",extended:true}));
 
 app.use("/api/v1/users",userRoutes);
+
+const dburl=process.env.ATLASDB_URL;
+
 let start=async()=>{
     app.set("mongo_user");
-    const connectiondb=await mongoose.connect("mongodb+srv://Easycall_user:Easycall770@easycall.pfrzjeo.mongodb.net/?appName=Easycall");
+    const connectiondb=await mongoose.connect(dburl,{
+        useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
     console.log(`MONGO Connected DB Host:${connectiondb.connection.host}`);
 server.listen(app.get("port"),()=>{
     console.log("LISTENING PORT 8000");
