@@ -11,8 +11,8 @@ import MicOffIcon from '@mui/icons-material/MicOff'
 import ScreenShareIcon from '@mui/icons-material/ScreenShare';
 import StopScreenShareIcon from '@mui/icons-material/StopScreenShare'
 import ChatIcon from '@mui/icons-material/Chat'
-
-const server_url = "http://localhost:8000";
+import server from '../enviroment';
+const server_url = server;
 
 // Global connections map (as you had)
 let connections = {};
